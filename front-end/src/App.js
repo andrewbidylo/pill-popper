@@ -106,22 +106,21 @@ export const App = () => {
     loaderMedications()
   }, [])
 
-  function searchResults(data) {
+  const searchResults = (data) => {
     setSearchId(Object.keys(data)[0]);
     setSearchName(Object.values(data)[0]);
-    console.log("Name and id from api: ", searchId, searchName)
   }
 
-  function clearSearch() {
+  const clearSearch = () => {
     setSearchId(null);
     setSearchName(null);
   }
 
-  function clearName() {
+  const clearName = () => {
     setSearchName(null);
   }
 
-  function editor(medication) {
+  const editor = (medication) => {
     axios.get(`http://localhost:8081/medications/${medication.id}`)
       .then((res) => {
         const data = res.data[0];
