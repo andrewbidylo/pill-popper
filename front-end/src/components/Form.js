@@ -1,6 +1,6 @@
-import React, { useState} from "react";
-import axios from 'axios';
 import "./Form.scss";
+import React, { useState } from "react";
+import axios from 'axios';
 import Time from "./Time"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -40,12 +40,12 @@ export const Form = (props) => {
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time)) }
 
-  function addFda(id, name) {
+  const addFda = (id, name) => {
     setMedicationName(name);
     setFdaId(id);
   }
 
-  const toggleWithFood = function () {
+  const toggleWithFood = () => {
     if (withFood) {
       setWithFood(false);
     } else {
@@ -53,7 +53,7 @@ export const Form = (props) => {
     }
   };
 
-  const toggleSendMessage = function () {
+  const toggleSendMessage = () => {
     if (textMessage) {
       setTextMessage(false);
     } else {
@@ -61,7 +61,7 @@ export const Form = (props) => {
     }
   };
 
-  const moreThanOnce = function () {
+  const moreThanOnce = () => {
     if (more) {
       setMore(false);
     } else {
@@ -108,7 +108,7 @@ export const Form = (props) => {
     }
   }
 
-  const cancel = function () {
+  const cancel = () => {
     props.transition("NONE");
   };
 
