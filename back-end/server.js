@@ -62,7 +62,7 @@ const phoneNumber = process.env.PHONE_NUMBER;
 const fromPhoneNumber = process.env.FROM_PHONE_NUMBER;
 
 // To enable TWILIO - uncomment the next line out
-// const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(accountSid, authToken);
 
 
 //Pusher
@@ -160,10 +160,9 @@ cron.schedule('* * * * *', () => {
         pusher.trigger("my-channel", "my-event", {
           message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`
         });
-
-       
-          
+     
         if (child.text_message) {
+          console.log("child.text_message", child.text_message)
           client.messages
           .create({
             body: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`,
