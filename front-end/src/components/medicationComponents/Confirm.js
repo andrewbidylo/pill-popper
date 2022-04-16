@@ -1,13 +1,7 @@
 import React from "react";
 import "./Confirm.scss";
 
-export default function Confirm(props) {
-  
-  
-
-  const cancel = function () {
-    props.setDestroy(false);
-  };
+export const Confirm = (props) => {
 
   return (
     <div className="confirm__card">

@@ -1,13 +1,9 @@
 require('dotenv').config();
 const Pusher = require("pusher");
 const cron = require('node-cron');
-//comment
-
-
 const Express = require('express');
 const cors = require('cors');
 const app = Express();
-const axios = require('axios');
 
 const BodyParser = require('body-parser');
 const sassMiddleware = require("./lib/sass-middlewear");
@@ -17,7 +13,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 
-const { Pool, Query } = require("pg");
+const { Pool } = require("pg");
 const dbParams = require("./lib/db");
 const db = new Pool(dbParams);
 db.connect();
@@ -26,10 +22,9 @@ const childrenRoutes = require('./routes/children');
 const medRoutes = require('./routes/medications');
 const userRoutes = require('./routes/users');
 const fdaRoutes = require('./routes/fda');
-//const { application } = require('express');
-
 
 const socketServer = require("./socketServer/socketServer");
+
 app.use(cors())
 
 app.use(
@@ -40,9 +35,6 @@ app.use(
     isSass: false, // false => scss, true => sass
   })
 );
-
-//app.use(express.static("public"));
-
 
 // Express Configuration
 app.use(BodyParser.urlencoded({ extended: false }));
@@ -78,43 +70,9 @@ const io = new Server(server, {
   }
 });
 
-// io.on('connection', (socket) => {
-//   console.log('user has connected');
-//   socket.on('data', (arg) => {
-//     const resObj = {};
-//     axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=2`)
-//       .then((res) => {
-//         if (res.data.results) {
-//           res.data.results.forEach(result => {
-//             console.log('Generic');
-//             resObj[result.id] = result.openfda.generic_name
-//           })
-//           socket.emit('search-data', resObj);
-//         } else {
-//           axios.get(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${arg}"&limit=2`)
-//             .then((res) => {
-//               if (res.data.results) {
-//                 res.data.results.forEach(result => {
-//                   console.log('Brand');
-//                   resObj[result.id] = result.openfda.brand_name
-//                 })
-//                 socket.emit('search-data', resObj);
-//               }
-//             })
-//         }
-//         console.log(resObj)
-
-//         //axios.get(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:"${arg}"&limit=5`)
-//       })
-//       //.then((res) => console.log('Axios response 2: ') )
-//       .catch(() => { console.log("ERRROOOOORRR!") });
-//   });
-// })
-
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server listening on ${PORT}`)
 })
-
 
 
 const pusher = new Pusher({
@@ -160,17 +118,17 @@ cron.schedule('* * * * *', () => {
         pusher.trigger("my-channel", "my-event", {
           message: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`
         });
-     
+
         if (child.text_message) {
           console.log("child.text_message", child.text_message)
           client.messages
-          .create({
-            body: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`,
-            from: fromPhoneNumber,
-            to: phoneNumber,
-          })
+            .create({
+              body: `${child.child_name}, please take ${child.name} - ${child.dose} mg. ${child.with_food ? "With food." : ""}`,
+              from: fromPhoneNumber,
+              to: phoneNumber,
+            })
         }
-        
+
       }
     }
   })

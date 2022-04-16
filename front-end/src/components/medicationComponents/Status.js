@@ -1,7 +1,7 @@
 import React from 'react';
 import './status.scss'
 
-export default function Status(props) {
+export const Status = (props) => {
   const statusClassName = props.color + ' info-status'
   return (
     <li className={statusClassName}>

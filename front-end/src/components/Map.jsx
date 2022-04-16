@@ -7,9 +7,9 @@ import {
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Pin from "./Pin";
+import {Pin} from "./Pin";
 
-const MapContainer = () => {
+export const Map = () => {
   const [currentPosition, setCurrentPosition] = useState({});
   const [data, setData] = useState([]);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
@@ -27,22 +27,18 @@ const MapContainer = () => {
   });
 
   useEffect(() => {
-    
-  axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${ process.env.REACT_APP_GOOGLE_KEY }`)
- 
-  .then((res) => {
-    setData((prev) => [
-      {
-        ...prev, 
-        data: res.data.results
-      },
-    ]);
-   
-  })
-  
-  .catch((error) => {console.log(error)})
-}, [currentPosition])
-  
+    axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`)
+      .then((res) => {
+        setData((prev) => [
+          {
+            ...prev,
+            data: res.data.results
+          },
+        ]);
+      })
+      .catch((error) => { console.log(error) })
+  }, [currentPosition])
+
   const mapStyles = {
     height: "20em",
     width: "90%",
@@ -95,6 +91,3 @@ const MapContainer = () => {
     </LoadScript>
   );
 };
-
-
-export default MapContainer;

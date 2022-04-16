@@ -1,6 +1,6 @@
-# Pill popper
+# Pill Popper
 
-Pill popper is a single-page applaction, build with React, JS, HTML, CSS3, SASS, AJAX, WebSocket, Socket.IO, Twilio, Pusher.
+Pill Popper is a single-page applaction, build with React, JS, HTML, CSS3, SASS, AJAX, WebSocket, Socket.IO, Twilio, Pusher.
 Server: Node, Express.
 DB: PostgreSQL.
 

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 module.exports = (db) => {
-  
+
   router.get('/:id/medications', (req, res) => {
     userId = Number(req.params.id);
     db.query(
@@ -18,8 +18,8 @@ module.exports = (db) => {
       ON childrens_medications.id = childrens_medications_id
       WHERE users.id = $1
       ORDER BY time;`, [userId]
-    ).then((response) => {  res.json(response.rows) })
-    .catch((err) => { console.log('There has been an ERROR: ', err) });
+    ).then((response) => { res.json(response.rows) })
+      .catch((err) => { console.log('There has been an ERROR: ', err) });
   });
 
   return router;

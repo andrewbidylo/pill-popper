@@ -1,29 +1,23 @@
+import "./App.scss";
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "./components/Calendar";
 import axios from "axios";
-import { io } from "socket.io-client";
-// For testing:
-
 import ChildrenList from "./components/ChildrenList";
-
-
-import "./App.scss";
-
 import { searchApi } from './helpers/apiFunctions'
-import useVisualMode from './hooks/useVisualMode'
-import Form from "./components/Form";
-import Status from "./components/Status";
-import MedicationItemList from "./components/MedicationItemList";
+import { useVisualMode } from './hooks/useVisualMode'
+import { Form } from "./components/Form";
+import { Status } from "./components/Status";
+import { MedicationItemList } from "./components/MedicationItemList";
 import Pusher from 'pusher-js';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import MyComponent from "./components/Map"
+import { Map } from "./components/Map"
 
 
 
-export default function App(props) {
+export const App = () => {
   const NONE = "NONE";
   const CALENDAR = "CALENDAR";
   const CHILDLIST = "CHILDLIST";
@@ -31,22 +25,16 @@ export default function App(props) {
   const EDIT = "EDIT";
   const LOADING = "LOADING";
   const SAVING = "SAVING";
-  const MAP = "MAP";
   const { mode, transition } = useVisualMode(NONE)
 
-
-  //const [viewCalendar, setViewCalendar] = useState(false);
-  //const [viewUser, setViewUser] = useState(false);
   const [value, onChange] = useState(new Date());
   const [medications, setMedications] = useState([]);
   const [selectedMed, setSelectedMed] = useState({})
-  const [search, setSearch] = useState()
   const [searchId, setSearchId] = useState()
   const [searchName, setSearchName] = useState()
 
 
   const [state, setState] = useState({
-    // medications: [],
     child: "",
     children: {},
   });
@@ -96,7 +84,7 @@ export default function App(props) {
   }
 
   const loaderMedications = () => {
-     transition(LOADING);
+    transition(LOADING);
     axios
       .get("http://localhost:8081/users/1/medications")
       .then((response) => {
@@ -104,7 +92,7 @@ export default function App(props) {
         setMedications((prev) =>
           [{
             ...prev,
-            
+
             medications: response.data,
           }],
         )
@@ -113,10 +101,10 @@ export default function App(props) {
       });
   }
 
-useEffect(() => {
-  loadChildren()
-  loaderMedications()
-},[])
+  useEffect(() => {
+    loadChildren()
+    loaderMedications()
+  }, [])
 
   function searchResults(data) {
     setSearchId(Object.keys(data)[0]);
@@ -124,12 +112,12 @@ useEffect(() => {
     console.log("Name and id from api: ", searchId, searchName)
   }
 
-  function clearSearch(){
+  function clearSearch() {
     setSearchId(null);
     setSearchName(null);
   }
 
-  function clearName(){
+  function clearName() {
     setSearchName(null);
   }
 
@@ -196,9 +184,9 @@ useEffect(() => {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} 
-          clearSearch={ clearSearch } 
-          clearName={ clearName } />}
+          searchData={{ id: searchId, name: searchName }}
+          clearSearch={clearSearch}
+          clearName={clearName} />}
 
         {mode === EDIT && <Form
           transition={transition}
@@ -209,8 +197,8 @@ useEffect(() => {
           loaderMedications={loaderMedications}
           searchApi={searchApi}
           searchResults={searchResults}
-          searchData={{ id: searchId, name: searchName }} 
-          clearSearch={ clearSearch } />}
+          searchData={{ id: searchId, name: searchName }}
+          clearSearch={clearSearch} />}
 
         {mode !== CREATE && mode !== EDIT && mode !== SAVING && mode !== LOADING &&
           <footer>
@@ -228,7 +216,7 @@ useEffect(() => {
             edit={editor}
           />}
         <h3 className="map-title">Pharmacies near you: </h3>
-        <MyComponent />
+        <Map />
 
         <header>
           <h3 className="app-title">
@@ -239,5 +227,3 @@ useEffect(() => {
     </main>
   );
 }
-
-

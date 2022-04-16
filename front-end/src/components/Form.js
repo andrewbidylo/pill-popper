@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import axios from 'axios';
 import "./Form.scss";
 import Time from "./Time"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
 import { searchApi } from "../helpers/apiFunctions";
 
-export default function Form(props) {
+export const Form = (props) => {
   let childNames;
   let children;
-  //let fdaName;
-  console.log("SEARCHDATA",props.searchData.name, props.searchData.id)
-  //let fdaId = props.searchData.name;
-
   if (props.children) {
     children = Object.values(props.children)
   } else {
@@ -25,13 +20,11 @@ export default function Form(props) {
   now.getMinutes()
   const timeNow = `${now.getHours()}:${now.getMinutes()}`
 
-
-  function addHours(date, hours) {
+  const addHours = (date, hours) => {
     const newDate = new Date(date);
     newDate.setHours(newDate.getHours() + hours);
     return newDate;
   }
-  
 
   const [medicationName, setMedicationName] = useState("" || props.medName);
   const [childId, setChildId] = useState(props.childId || "");
@@ -43,7 +36,7 @@ export default function Form(props) {
   const [endDate, setEndDate] = useState(addHours(new Date(), 1) || props.endDate)
   const [textMessage, setTextMessage] = useState(false || props.textMessage);
   const [fdaId, setFdaId] = useState('none')
-  
+
 
   const handleRemoveTime = time => { setSavedTime(savedTime.filter(item => item !== time)) }
 
@@ -51,7 +44,6 @@ export default function Form(props) {
     setMedicationName(name);
     setFdaId(id);
   }
-
 
   const toggleWithFood = function () {
     if (withFood) {
@@ -91,9 +83,10 @@ export default function Form(props) {
         end_date: endDate,
         fda_id: fdaId
       })
-        .then(()=>{
-          props.loaderMedications()})
-        .then(()=>{props.transition("NONE");})
+        .then(() => {
+          props.loaderMedications()
+        })
+        .then(() => { props.transition("NONE"); })
         .then(() => props.clearSearch())
         .catch(err => console.log('There has been an ERROR: ', err));
 
@@ -116,8 +109,6 @@ export default function Form(props) {
   }
 
   const cancel = function () {
-    // closes form
-    //add code to clear input values
     props.transition("NONE");
   };
 
@@ -142,17 +133,12 @@ export default function Form(props) {
           <div className='medication-form'>
             <label>Choose Family Member:</label>
             {props.mode !== "EDIT" &&
-
               <select onChange={(event) => setChildId(event.target.value)} name="names" className="name-menu" id="names">
                 <option value="select">Select</option>
-                {/* <option value="saab">Saab</option>
-              <option value="mercedes">Mercedes</option>
-              <option value="audi">Audi</option> */}
                 {childNames}
               </select>}
             {props.mode === "EDIT" && <div><p>{props.childName}</p></div>}
           </div>
-
           <div className='medication-form dropdown-content'>
             <label>Medication Name:</label>
             <input type="text"
@@ -164,16 +150,14 @@ export default function Form(props) {
                 props.clearSearch();
               }}
             />
-
             {props.searchData.id &&
               <a className="search-result"
-              onClick={ () => { 
-                addFda(props.searchData.id, props.searchData.name); 
-                setMedicationName(props.searchData.name[0])
-                props.clearName() } } >{props.searchData.name}</a>}
-
+                onClick={() => {
+                  addFda(props.searchData.id, props.searchData.name);
+                  setMedicationName(props.searchData.name[0])
+                  props.clearName()
+                }} >{props.searchData.name}</a>}
           </div>
-
           <div>
             <div className='medication-form'>
               <label>Dosage mg:</label>
@@ -183,7 +167,6 @@ export default function Form(props) {
                 value={dose}
                 onChange={(event) => {
                   setDose(event.target.value);
-
                 }}
               />
             </div>
@@ -220,15 +203,13 @@ export default function Form(props) {
             {timeList}
           </ul>
         </div>
-
       </section>
-
       <section className="medication__form--actions">
         <button className="form-button" onClick={() => save(props.mode)}>Save</button>
         <button className="form-button" onClick={cancel}>Cancel</button>
       </section>
-      <button className='close-component' onClick={ () => props.transition('NONE') } >
-        <FontAwesomeIcon icon={faXmark } />
+      <button className='close-component' onClick={() => props.transition('NONE')} >
+        <FontAwesomeIcon icon={faXmark} />
       </button>
     </main>
   );

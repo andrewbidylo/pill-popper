@@ -9,9 +9,9 @@ module.exports = (db) => {
       FROM childrens_medications
       JOIN times ON childrens_medications.id = childrens_medications_id
       WHERE childrens_medications.id = $1::integer
-      GROUP BY childrens_medications.id, time;`, [Number(req.params.id)] 
-    ).then(({ rows: medication }) =>  setTimeout(() => { res.json(medication) }, 3000)  ) 
-    .catch(err => console.log('There has been an ERROR: ', err));
+      GROUP BY childrens_medications.id, time;`, [Number(req.params.id)]
+    ).then(({ rows: medication }) => setTimeout(() => { res.json(medication) }, 3000))
+      .catch(err => console.log('There has been an ERROR: ', err));
   })
 
   router.post('/:childId/new', (req, res) => {
@@ -23,20 +23,20 @@ module.exports = (db) => {
       (child_id, name, dose, with_food, end_date, fda_id, text_message)
       Values ($1, $2, $3, $4, $5, $6,$7)
       RETURNING id;`, [childId, name, dose, with_food, end_date, fda_id, text_message]
-      ).then((response)=> {
-         const medId = response.rows[0].id;
-          Promise.all(
-            times.map((time) => {
-              db.query(
-                `INSERT INTO times
+    ).then((response) => {
+      const medId = response.rows[0].id;
+      Promise.all(
+        times.map((time) => {
+          db.query(
+            `INSERT INTO times
                 (time, childrens_medications_id)
                 VALUES ($1, $2);`, [time, medId]
-              )
-            })
-          ).then(() => {
-            setTimeout(() => { res.send({ status: "good" }) }, 3000)
-          }).catch(err => console.log('There has been an ERROR: ', err));
-        }).catch(err => console.log('There has been an ERROR: ', err));
+          )
+        })
+      ).then(() => {
+        setTimeout(() => { res.send({ status: "good" }) }, 3000)
+      }).catch(err => console.log('There has been an ERROR: ', err));
+    }).catch(err => console.log('There has been an ERROR: ', err));
   });
 
   router.put('/:med_id/edit', (req, res) => {
@@ -48,7 +48,7 @@ module.exports = (db) => {
       db.query(
         `DELETE FROM times
         WHERE childrens_medications_id = $1;`, [medId]
-        ),
+      ),
       db.query(
         `UPDATE childrens_medications
         SET name = $1,
@@ -56,7 +56,7 @@ module.exports = (db) => {
         dose = $3,
         text_message = $4
         WHERE id = $5;`, [name, with_food, dose, text_message, medId]
-        )
+      )
     ]).then(() => {
       Promise.all([
         times.map((time) => {
@@ -66,7 +66,7 @@ module.exports = (db) => {
             VALUES ($1, $2);`, [time, medId]
           )
         })
-      ]).then(() => { setTimeout(() => { res.send({ status: "good"}) },3000) });
+      ]).then(() => { setTimeout(() => { res.send({ status: "good" }) }, 3000) });
     }).catch((err) => { console.log(medId); console.log('There was an ERROR: ', err) });
   });
 
@@ -74,7 +74,7 @@ module.exports = (db) => {
     db.query(
       `DELETE FROM childrens_medications
       WHERE id = $1::integer`, [req.params.medId]
-    ).then(()=> { res.send({ status: "good" }) })
+    ).then(() => { res.send({ status: "good" }) })
   });
 
   return router;

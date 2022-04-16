@@ -1,11 +1,12 @@
 import React from "react";
 
-export default function ItemDefault(props) {
-  console.log(props.fda_id);
+
+export const ItemDefault = (props) => {
+
   const itemClassName = props.color + " medication-item"
 
   return (
-    <li className={ itemClassName }>
+    <li className={itemClassName}>
       <div className="medication-time-name">
         <p className="scheduled-time">
           {props.time} <i className="fa-solid fa-arrow-right-long"></i>{" "}
@@ -17,13 +18,13 @@ export default function ItemDefault(props) {
         </h2>
       </div>
       <section className="medication-item-icons">
-        <p onClick={ props.onEdit }>
+        <p onClick={props.onEdit}>
           <i className="fa-solid fa-user-pen"></i>
         </p>
         <p>
           <i className="fa-solid fa-trash" onClick={() => props.transition("CONFIRM")}></i>
         </p>
-        {(props.fda_id !== "none") && (props.fda_id) && <p onClick={ () => props.getFda() }>
+        {(props.fda_id !== "none") && (props.fda_id) && <p onClick={() => props.getFda()}>
           <i className="fa-solid fa-circle-info"></i>
         </p>}
       </section>
