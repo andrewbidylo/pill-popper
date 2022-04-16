@@ -12,13 +12,13 @@ Users can:
 
 ## Final Product
 
-!["main_page_1"]("")
+!["main_page_1"](https://github.com/andrewbidylo/pill-popper/blob/main/docs/main_page_1.png?raw=true)
 
-!["main_page_2"]("")
+!["main_page_2"](https://github.com/andrewbidylo/pill-popper/blob/main/docs/main_page_2.png?raw=true)
 
-!["main_page_3"]("")
+!["main_page_3"](https://github.com/andrewbidylo/pill-popper/blob/main/docs/main_page_3.png?raw=true)
 
-!["main_page_4"]("")
+!["main_page_4"](https://github.com/andrewbidylo/pill-popper/blob/main/docs/main_page_4.png?raw=true)
 
 ### Wireframe
 https://www.figma.com/file/gxnJZxnfgyEOFxXr1c3V3v/Pill-popper?node-id=2%3A23
