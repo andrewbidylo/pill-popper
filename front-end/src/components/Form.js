@@ -73,7 +73,7 @@ export const Form = (props) => {
     props.transition("SAVING");
     console.log(medicationName);
     if (mode === "CREATE") {
-      axios.post(`http://localhost:8081/medications/${childId}/new`, {
+      axios.post(`https://pill-popperr.herokuapp.com/medications/${childId}/new`, {
         child_id: childId,
         name: medicationName,
         dose: dose,
@@ -91,7 +91,7 @@ export const Form = (props) => {
         .catch(err => console.log('There has been an ERROR: ', err));
 
     } else if (mode === "EDIT") {
-      axios.put(`http://localhost:8081/medications/${props.medId}/edit`, {
+      axios.put(`https://pill-popperr.herokuapp.com/medications/${props.medId}/edit`, {
         child_id: childId,
         name: medicationName,
         dose: dose,

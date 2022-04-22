@@ -70,7 +70,7 @@ export const App = () => {
   const loadChildren = () => {
     transition(LOADING)
     axios
-      .get("users/1/children")
+      .get("https://pill-popperr.herokuapp.com/users/1/children")
       .then((res) => {
         setState((prev) => ({
           ...prev,
@@ -86,7 +86,7 @@ export const App = () => {
   const loaderMedications = () => {
     transition(LOADING);
     axios
-      .get("users/1/medications")
+      .get("https://pill-popperr.herokuapp.com/users/1/medications")
       .then((response) => {
         transition(NONE);
         setMedications((prev) =>
@@ -121,7 +121,7 @@ export const App = () => {
   }
 
   const editor = (medication) => {
-    axios.get(`medications/${medication.id}`)
+    axios.get(`https://pill-popperr.herokuapp.com/medications/${medication.id}`)
       .then((res) => {
         const data = res.data[0];
         setSelectedMed({

@@ -24,7 +24,7 @@ export const MedicationItem = (props) => {
   const getFda = () => {
     transition(STATUS)
 
-    axios.get(`http://localhost:8081/fda/${props.fda_id}`)
+    axios.get(`https://pill-popperr.herokuapp.com/fda/${props.fda_id}`)
       .then((res) => {
         setTimeout(() => transition(OPTIONS), 1500)
         setInfo(res.data[0])

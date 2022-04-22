@@ -7,7 +7,7 @@ export const MedicationItemList = (props) => {
   const medications = props.medications[0].medications;
   const medicationItemList = medications.map((medication) => {
     const deleteMe = function () {
-      axios.delete(`http://localhost:8081/medications/${medication.id}/delete`)
+      axios.delete(`https://pill-popperr.herokuapp.com/medications/${medication.id}/delete`)
         .then(() => {
           props.setMedications((prev) => [{ ...prev, medications: props.medications[0].medications.filter(med => med.id !== medication.id) }])
         })
