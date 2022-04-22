@@ -54,7 +54,7 @@ const phoneNumber = process.env.PHONE_NUMBER;
 const fromPhoneNumber = process.env.FROM_PHONE_NUMBER;
 
 // To enable TWILIO - uncomment the next line out
-const client = require('twilio')(accountSid, authToken);
+// const client = require('twilio')(accountSid, authToken);
 
 
 //Pusher
