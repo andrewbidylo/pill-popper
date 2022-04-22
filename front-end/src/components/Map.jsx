@@ -27,7 +27,7 @@ export const Map = () => {
   });
 
   useEffect(() => {
-    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`)
+    axios.get(`/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`)
       .then((res) => {
         setData((prev) => [
           {
