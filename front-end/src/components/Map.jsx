@@ -39,6 +39,23 @@ export const Map = () => {
   //     })
   //     .catch((error) => { console.log(error) })
   // }, [currentPosition])
+    useEffect(() => {
+      axios({
+        method: 'get',
+        url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`,
+        headers: {'Origin': 'https://maps.googleapis.com'}
+    })
+      .then((res) => {
+        setData((prev) => [
+          {
+            ...prev,
+            data: res.data.results
+          },
+        ]);
+      })
+      .catch((error) => { console.log(error) })
+  }, [currentPosition])
+  
 
   const mapStyles = {
     height: "20em",
