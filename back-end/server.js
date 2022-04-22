@@ -65,7 +65,7 @@ const sectet = process.env.SECRET;
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://pill-popper.netlify.app",
     methods: ['GET', 'POST']
   }
 });
