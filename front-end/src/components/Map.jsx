@@ -26,13 +26,9 @@ export const Map = () => {
     navigator.geolocation.getCurrentPosition(success);
   });
 
-  const config = {
-    url: `https://maps.googleapis.com/maps/api/place/nearbysearch"/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`,
-    secure: false
-  };
-
+  
   useEffect(() => {
-    axios.get(config)
+    axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${currentPosition.lat},${currentPosition.lng}&radius=2000&types=pharmacy&key=${process.env.REACT_APP_GOOGLE_KEY}`)
       .then((res) => {
         setData((prev) => [
           {
