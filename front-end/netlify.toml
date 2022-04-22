@@ -13,5 +13,5 @@
 
 [build.environment]
   REACT_APP_WEBSOCKET_URL = "wss://pill-popperr.herokuapp.com/"
-  REACT_APP_GOOGLE_KEY = "AIzaSyD933vTDI_-YjJ3thrfYxZLWoz1mu_fipo"
+  REACT_APP_GOOGLE_KEY = "AIzaSyDn1lWc6SWvGv6TGQi_kxZy-_eqw7bOetg"
   
