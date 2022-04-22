@@ -15,9 +15,3 @@
   REACT_APP_WEBSOCKET_URL = "wss://pill-popperr.herokuapp.com/"
   REACT_APP_GOOGLE_KEY = "AIzaSyD933vTDI_-YjJ3thrfYxZLWoz1mu_fipo"
   
-
-  [[redirects]]
-  from = "https://pill-popper.netlify.app"
-  to = "https://maps.googleapis.com/maps/api/place/nearbysearch"
-  status = 200
-  force = true # COMMENT: ensure that we always redirect
