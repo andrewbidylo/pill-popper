@@ -46,7 +46,6 @@ export const Map = () => {
     width: "90%",
   };
 
-
   return (
     <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
       {currentPosition.lng && <GoogleMap
